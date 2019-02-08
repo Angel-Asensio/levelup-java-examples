@@ -151,7 +151,7 @@ public class SortACollection {
 	}
 
 	@Test
-	public void sort_collection_with_java8_byweight_wins() {
+	public void sort_collection_with_java8_byWeight_byWins() {
 
 		List<Wrestler> sorted = wrestlers
 				.stream()

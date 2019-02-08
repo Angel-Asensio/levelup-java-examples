@@ -74,24 +74,18 @@ public class FilterMapByEntries {
 		assertThat(monthsWithLengthFour.values(), contains("June", "July"));
 	}
 
-	
-	
 	@Test
 	public void filter_map_by_entries_guava() {
 
-		Predicate<Map.Entry<Integer, String>> monthLenthFour = 
-				new Predicate<Map.Entry<Integer, String>>() {
-			@Override
-			public boolean apply(Entry<Integer, String> input) {
-				return input.getValue().length() == 4;
-			}
-		};
+		Map<Integer, String> monthsWithLengthFour = Maps.filterEntries(MONTHS, new Predicate<Map.Entry<Integer, String>>() {
+            @Override
+            public boolean apply(Entry<Integer, String> input) {
+                return input.getValue().length() == 4;
+            }
+        });
 
-//		Map<Integer, String> monthsWithLengthFour = Maps.filterEntries(MONTHS,
-//				monthLenthFour);
-//
-//		logger.info(monthsWithLengthFour);
-//
-//		assertThat(monthsWithLengthFour.values(), contains("June", "July"));
+		logger.info(monthsWithLengthFour);
+
+		assertThat(monthsWithLengthFour.values(), contains("June", "July"));
 	}
 }
