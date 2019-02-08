@@ -2,6 +2,7 @@ package com.levelup.java.number;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
@@ -58,7 +59,7 @@ public class Eurojackpot {
     }
 
     @Test
-    public void eurojackpotGenerator() {
+    public void eurojackpotGeneratorWithSelectedNumbers() {
         Integer[] selected = { 12, 16, 18, 20, 23, 32, 35, 42, 44, 47 };
 
         Set<Integer> numbers = new TreeSet<>();
@@ -74,8 +75,51 @@ public class Eurojackpot {
         System.out.printf("eurojackpot: %s + %s%n", numbers, stars);
     }
 
+    @Test
+    public void eurojackpotGenerator() {
+
+        Set<Integer> fieldA = new TreeSet<>();
+
+        while (fieldA.size() < 5) {
+            int chosen = getRandomValidNumber(50);
+            if (!fieldA.contains(chosen)) {
+                fieldA.add(chosen);
+            }
+        }
+
+        Set<Integer> fieldB = new TreeSet<>();
+
+        while (fieldB.size() < 2) {
+            int chosen = getRandomValidNumber(10);
+            if (!fieldB.contains(chosen)) {
+                fieldB.add(chosen);
+            }
+        }
+
+        System.out.printf("eurojackpot: %s + %s%n", fieldA, fieldB);
+    }
+
+
     int getRandomIndex() {
         return ThreadLocalRandom.current().nextInt(10);
+    }
+
+    int getRandomValidNumber(final int bound) {
+        return ThreadLocalRandom.current().nextInt(bound) + 1;
+    }
+
+    @Test
+    public void lotto6aus49Generator() {
+        Set<Integer> numbers = new TreeSet<>();
+
+        while (numbers.size() < 6) {
+            int chosen = getRandomValidNumber(49);
+            if (!numbers.contains(chosen)) {
+                numbers.add(chosen);
+            }
+        }
+
+        System.out.printf("6 aus 49: %s%n", numbers);
     }
 
 }
