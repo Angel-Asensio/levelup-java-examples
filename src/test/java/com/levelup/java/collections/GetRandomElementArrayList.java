@@ -29,8 +29,7 @@ public class GetRandomElementArrayList {
 		Random random = new Random();
 
 		for (int x = 0; x < 5; x++) {
-			System.out
-					.println(randomList.get(random.nextInt(randomList.size())));
+			System.out.println(randomList.get(random.nextInt(randomList.size())));
 		}
 	}
 
@@ -44,8 +43,6 @@ public class GetRandomElementArrayList {
 
 		Random random = new Random();
 
-		IntStream.range(0, 5).forEach(
-				a -> System.out.println(randomValue.get(random
-						.nextInt(randomValue.size()))));
+		IntStream.range(0, 5).forEach(value -> System.out.println(randomValue.get(random.nextInt(randomValue.size()))));
 	}
 }
