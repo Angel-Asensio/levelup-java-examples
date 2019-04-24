@@ -1,10 +1,15 @@
  package com.levelup.java.date.between;
 
+import static java.time.format.DateTimeFormatter.ISO_DATE;
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAccessor;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -47,6 +52,22 @@ public class DaysBetweenDates {
 		int days = d.getDays();
 		
 		assertEquals(1, days);
+	}
+
+	@Test
+	public void all_days_between_two_dates() {
+		TemporalAccessor toTemporalAccessor = ISO_DATE.parse("2019-04-18");
+
+		LocalDate to = LocalDate.from(toTemporalAccessor);
+		LocalDate from = to.minusDays(7);
+
+		long numOfDaysBetween = ChronoUnit.DAYS.between(from, to);
+		List<String> allDates = IntStream.iterate(0, i -> i + 1)
+				.limit(numOfDaysBetween + 1)
+				.mapToObj(i -> from.plusDays(i).toString())
+				.collect(Collectors.toList());
+
+		System.out.println(allDates);
 	}
 
 }
