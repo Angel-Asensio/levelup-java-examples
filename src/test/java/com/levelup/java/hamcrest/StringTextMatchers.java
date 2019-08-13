@@ -1,18 +1,23 @@
 package com.levelup.java.hamcrest;
 
-import org.junit.Test;
-
-import com.google.common.collect.Lists;
-
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.startsWith;
-import static org.hamcrest.text.IsEmptyString.*;
-import static org.hamcrest.text.IsEqualIgnoringCase.*;
-import static org.hamcrest.text.IsEqualIgnoringWhiteSpace.*;
-import static org.hamcrest.text.StringContainsInOrder.*;
+import static org.hamcrest.text.IsEmptyString.isEmptyOrNullString;
+import static org.hamcrest.text.IsEmptyString.isEmptyString;
+import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
+import static org.hamcrest.text.IsEqualIgnoringWhiteSpace.equalToIgnoringWhiteSpace;
+import static org.hamcrest.text.StringContainsInOrder.stringContainsInOrder;
 import static org.junit.Assert.assertThat;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import org.junit.Test;
+
+import com.google.common.collect.Lists;
 
 /**
  * This java example will demonstrate testing
@@ -22,13 +27,13 @@ import static org.junit.Assert.assertThat;
  * @see <a href='http://www.leveluplunch.com/java/examples/hamcrest-text-matchers-junit-testing/'>Text matchers</a>
  * 
  */
-public class TextMatchers {
+public class StringTextMatchers {
 
 	@Test
 	public void string_is_empty () {
 
 		String favoriteCereal = "";
-		assertThat(favoriteCereal, isEmptyOrNullString());
+		assertThat(favoriteCereal, isEmptyString());
 	}
 	
 	@Test
@@ -64,14 +69,7 @@ public class TextMatchers {
 		String cereal = "mini wheats";
 		assertThat(cereal, containsString("mini"));
 	}
-	
-	@Test
-	public void string_ends_with () {
 
-		String cereal = "corn flakes";
-		assertThat(cereal, endsWith("s"));
-	}
-	
 	@Test
 	public void string_starts_with () {
 
@@ -80,10 +78,18 @@ public class TextMatchers {
 	}
 
 	@Test
+	public void string_ends_with () {
+
+		String cereal = "corn flakes";
+		assertThat(cereal, endsWith("s"));
+	}
+
+	@Test
 	public void string_has_order () {
 		
 		String cereal = "apple jacks";
 		assertThat(cereal, stringContainsInOrder(Lists.newArrayList("apple", "jacks")));
 	}
+
 	
 }
