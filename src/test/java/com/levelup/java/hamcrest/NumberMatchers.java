@@ -39,6 +39,11 @@ public class NumberMatchers {
     }
 
     @Test
+    public void long_isEqualTo() {
+        assertThat(new Long(20), is(equalTo(20L)));
+    }
+
+    @Test
     public void integer_greaterthan() {
         assertThat(20, greaterThan(18));
     }
