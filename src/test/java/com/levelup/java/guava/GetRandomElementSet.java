@@ -9,7 +9,7 @@ import com.google.common.collect.ImmutableSet;
 
 public class GetRandomElementSet {
 
-    public static final Set<Integer> ODD_NUMBERS_UNDER_TEN =
+    private static final Set<Integer> ODD_NUMBERS_UNDER_TEN =
             ImmutableSet.<Integer>builder()
                     .add(1)
                     .add(3)
@@ -17,9 +17,9 @@ public class GetRandomElementSet {
                     .add(7)
                     .build();
 
-    private static <E> E getRandomElementFromSet(Set<E> set) {
-        return set.stream()
-                .skip(ThreadLocalRandom.current().nextInt(set.size()))
+    private static <E> E getRandomElementFromSet(final Set<E> inputSet) {
+        return inputSet.stream()
+                .skip(ThreadLocalRandom.current().nextInt(inputSet.size()))
                 .findFirst()
                 .orElse(null);
     }

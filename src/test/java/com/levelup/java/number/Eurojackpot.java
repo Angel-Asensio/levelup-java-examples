@@ -54,7 +54,7 @@ public class Eurojackpot {
     @Test
     public void eurojackpotGewinnchance() {
         long sequences = binomial(50, 5) * binomial(10, 2);
-        System.out.printf("eurojackpot Gewinnchance: 1 : %s%n", format(sequences));
+        System.out.printf("eurojackpot Gewinnchance ==> 1 : %s%n", format(sequences));
     }
 
     @Test
@@ -64,14 +64,14 @@ public class Eurojackpot {
         Set<Integer> numbers = new TreeSet<>();
 
         while (numbers.size() < 5) {
-            int chosen = selected[getRandomIndex()];
+            int chosen = selected[getRandomIndex(10)];
             if (!numbers.contains(chosen)) {
                 numbers.add(chosen);
             }
         }
 
         Set<Integer> stars = ImmutableSet.of(5, 8);
-        System.out.printf("eurojackpot: %s + %s%n", numbers, stars);
+        System.out.printf("eurojackpot combination: %s + %s%n", numbers, stars);
     }
 
     @Test
@@ -99,12 +99,12 @@ public class Eurojackpot {
     }
 
 
-    int getRandomIndex() {
-        return ThreadLocalRandom.current().nextInt(10);
+    int getRandomIndex(final int bound) {
+        return ThreadLocalRandom.current().nextInt(bound);
     }
 
     int getRandomValidNumber(final int bound) {
-        return ThreadLocalRandom.current().nextInt(bound) + 1;
+        return getRandomIndex(bound) + 1;
     }
 
     @Test

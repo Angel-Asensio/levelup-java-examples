@@ -1,8 +1,5 @@
 package com.levelup.java.util.stream;
 
-import static java.lang.Double.max;
-import static java.lang.Double.min;
-import static java.lang.Double.sum;
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
@@ -10,6 +7,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -62,7 +60,8 @@ public class StreamReduce {
 	public void sum_elements() {
 
 		double totalPrecipYear = precip.stream()
-				.mapToDouble(Precipitation::getAmount).sum();
+				.mapToDouble(Precipitation::getAmount)
+				.sum();
 
 		assertEquals(1.9399999999999997, totalPrecipYear, 0);
 
@@ -85,14 +84,17 @@ public class StreamReduce {
 	public void max_elements() {
 
 		OptionalDouble max = precip.stream()
-				.mapToDouble(Precipitation::getAmount).max();
-
-		assertEquals(1.09, max.getAsDouble(), 0);
+				.mapToDouble(Precipitation::getAmount)
+				.max();
+		final AtomicReference<Double> val = new AtomicReference<Double>();
+		max.ifPresent(val::set);
+		assertEquals(1.09, val.get(), 0);
 
 		// or
 
 		OptionalDouble max2 = precip.stream()
-				.mapToDouble(Precipitation::getAmount).reduce(Double::max);
+				.mapToDouble(Precipitation::getAmount)
+				.reduce(Double::max);
 
 		assertEquals(1.09, max2.getAsDouble(), 0);
 	}
@@ -101,7 +103,8 @@ public class StreamReduce {
 	public void min_elements() {
 
 		OptionalDouble min = precip.stream()
-				.mapToDouble(Precipitation::getAmount).min();
+				.mapToDouble(Precipitation::getAmount)
+				.min();
 
 		assertEquals(.1, min.getAsDouble(), 0);
 
@@ -117,7 +120,8 @@ public class StreamReduce {
 	public void average_of_elements() {
 
 		OptionalDouble average = precip.stream()
-				.mapToDouble(Precipitation::getAmount).average();
+				.mapToDouble(Precipitation::getAmount)
+				.average();
 		
 		assertEquals(0.48499999999999993, average.getAsDouble(), 0);
 	}
@@ -126,7 +130,8 @@ public class StreamReduce {
 	public void count_elements() {
 
 		long numberOfElements = precip.stream()
-				.mapToDouble(Precipitation::getAmount).count();
+				.mapToDouble(Precipitation::getAmount)
+				.count();
 		
 		assertEquals(4.0, numberOfElements, 0);
 	}

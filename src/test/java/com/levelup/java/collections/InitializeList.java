@@ -52,10 +52,10 @@ public class InitializeList {
 	}
 
 	@Test
-	public void initialize_list_java_with_double_brace_initialziation () {
+	public void initialize_list_java_with_double_brace_initialization () {
 		
 		@SuppressWarnings("serial")
-		ArrayList<String> cheeses = new ArrayList<String>() {
+		List<String> cheeses = new ArrayList<String>() {
 			{
 				add("Munster");
 				add("Swiss");
