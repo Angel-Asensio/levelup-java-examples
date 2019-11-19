@@ -15,6 +15,7 @@ import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
+import com.levelup.java.collections.list.CountElementsInList;
 
 /**
  * This java example will demonstrate how to filter items from a list with 
