@@ -8,7 +8,7 @@ import java.util.Locale;
 import org.hamcrest.core.IsSame;
 import org.junit.Test;
 
-public class LocaleConverter {
+public class I18nUtils {
 
     @Test
     public void localeFromString() {

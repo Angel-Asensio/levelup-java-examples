@@ -73,7 +73,8 @@ public class FunctionExample {
 
 		@Override
 		public String toString() {
-			return Objects.toStringHelper(Job.class).add("personid", personId)
+			return Objects.toStringHelper(Job.class)
+					.add("personid", personId)
 					.add("job description", description).toString();
 		}
 
@@ -90,11 +91,13 @@ public class FunctionExample {
 	public void map_objects_with_java8_function() {
 
 		List<Person> persons = Lists.newArrayList(new Person(1, "Husband"),
-				new Person(2, "Dad"), new Person(3, "Software engineer"),
-				new Person(4, "Adjunct instructor"), new Person(5,
-						"Pepperoni hanger"));
+				new Person(2, "Dad"),
+				new Person(3, "Software engineer"),
+				new Person(4, "Adjunct instructor"),
+				new Person(5, "Pepperoni hanger"));
 
-		List<Job> jobs = persons.stream().map(mapPersonToJob)
+		List<Job> jobs = persons.stream()
+				.map(mapPersonToJob)
 				.collect(Collectors.toList());
 
 		logger.info(jobs);
