@@ -1,7 +1,10 @@
 package com.levelup.java.util.stream;
 
 import static java.util.stream.Collectors.toSet;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 import java.util.ArrayList;
@@ -20,7 +23,9 @@ import org.junit.Test;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class StreamGroupByFilterByMultipleAttributes {
 
     @Getter
@@ -54,6 +59,11 @@ public class StreamGroupByFilterByMultipleAttributes {
         managers.add(new Manager("Michael", "X", "Inhaber"));
         managers.add(new Manager("Michael", "Rittinghaus", "Inhaber"));
 
+    }
+
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 
     /**
@@ -122,6 +132,22 @@ public class StreamGroupByFilterByMultipleAttributes {
         List<Manager> results = joinSets(uniqueManagingDirectors, uniqueAuthorizedSignatories, ownersNotDirectors);
 
         assertEquals(4, results.size());
+    }
+
+    @Test
+    public void group_by_function_filterDistinctByDistinctKeys() {
+        Map<String, List<Manager>> groupByFunction = managers.stream()
+                .collect(Collectors.groupingBy(Manager::getFunction));
+
+        // filter duplicates
+        List<Manager> managingDirectors = groupByFunction.get("Geschäftsführer");
+        Set<Manager> uniqueManagingDirectors = Collections.emptySet();
+        if (!isEmpty(managingDirectors)) {
+            uniqueManagingDirectors = managingDirectors.stream()
+                    .filter(distinctByKey(Manager::getFirstName).and(distinctByKey(Manager::getLastName)))
+                    .collect(toSet());
+        }
+        assertThat(uniqueManagingDirectors.size(), is(equalTo(2)));
     }
 
 }

@@ -28,24 +28,24 @@ import com.google.common.collect.Lists;
 public class NumberMatchers {
 
     @Test
+    public void integer_isEqualTo() {
+        assertThat(20, is(equalTo(20)));
+    }
+
+    @Test
+    public void integer_greaterthan() {
+        assertThat(20, greaterThan(18));
+    }
+
+    @Test
     public void double_close_to_number() {
         final double doubleNumber = 200.24;
         assertThat(doubleNumber, is(closeTo(200, 1)));
     }
 
     @Test
-    public void integer_isEqualTo() {
-        assertThat(20, is(equalTo(20)));
-    }
-
-    @Test
     public void long_isEqualTo() {
         assertThat(new Long(20), is(equalTo(20L)));
-    }
-
-    @Test
-    public void integer_greaterthan() {
-        assertThat(20, greaterThan(18));
     }
 
     @Test
