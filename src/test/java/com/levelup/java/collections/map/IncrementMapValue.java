@@ -1,9 +1,9 @@
 package com.levelup.java.collections.map;
 
-import org.junit.Test;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import org.junit.Test;
 
 public class IncrementMapValue {
 
@@ -13,7 +13,7 @@ public class IncrementMapValue {
     }
 
     @Test
-    public void withPutIfAbsent(){
+    public void withPutIfAbsent() {
         Map<String, Integer> hashMap = new HashMap<>();
         hashMap.put("A", 1);
 
@@ -31,7 +31,7 @@ public class IncrementMapValue {
     }
 
     @Test
-    public void withMerge(){
+    public void withMerge() {
         Map<String, Integer> hashMap = new HashMap<>();
         hashMap.put("A", 1);
 
@@ -41,7 +41,7 @@ public class IncrementMapValue {
         System.out.println(hashMap);
     }
 
-    public <K> void incrementGetOrDefault(Map<K,Integer> map, K key) {
+    public <K> void incrementGetOrDefault(Map<K, Integer> map, K key) {
         Integer count = map.getOrDefault(key, 0);
         map.put(key, count + 1);
     }
@@ -58,7 +58,7 @@ public class IncrementMapValue {
         System.out.println(hashMap);
     }
 
-    public <K> void incrementComputeIfPresent(Map<K,Integer> map, K key) {
+    public <K> void incrementComputeIfPresent(Map<K, Integer> map, K key) {
         if (map.computeIfPresent(key, (k, v) -> v + 1) == null) {
             map.put(key, 1);
         }
