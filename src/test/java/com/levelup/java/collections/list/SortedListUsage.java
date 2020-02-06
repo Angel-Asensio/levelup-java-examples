@@ -5,6 +5,11 @@ import java.util.List;
 
 import org.junit.Test;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 public class SortedListUsage {
 
     @Test
@@ -21,39 +26,18 @@ public class SortedListUsage {
         System.out.println(sortedNames);
     }
 
+    @Getter
+    @Setter
+    @ToString
+    @EqualsAndHashCode
     class Person {
+
         private int id;
         private String name;
 
         public Person(int id, String name) {
             this.id = id;
             this.name = name;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public int hashCode() {
-            return this.id;
-        }
-
-        @Override
-        public String toString() {
-            return "(" + id + ", " + name + ")";
         }
     }
 
@@ -71,13 +55,15 @@ public class SortedListUsage {
         System.out.println("Persons by id:");
         personsById.forEach(System.out::println);
 
+        System.out.println();
+
         SortedList personsByName = new SortedList(Comparator.comparing(Person::getName));
         personsByName.add(new Person(2, "Z"));
         personsByName.add(new Person(1, "X"));
         personsByName.add(new Person(4, "C"));
         personsByName.add(new Person(3, "A"));
 
-        System.out.println("Persons bynName:");
+        System.out.println("Persons by name:");
         personsByName.forEach(System.out::println);
     }
 
