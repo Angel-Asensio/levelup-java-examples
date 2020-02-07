@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 import org.junit.Before;
 import org.junit.Test;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -30,17 +31,12 @@ public class StreamGroupByFilterByMultipleAttributes {
 
     @Getter
     @Setter
+    @AllArgsConstructor
     class Manager {
 
         private String firstName;
         private String lastName;
         private String function;
-
-        public Manager(final String firstName, final String lastName, final String function) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.function = function;
-        }
     }
 
     private List<Manager> managers;

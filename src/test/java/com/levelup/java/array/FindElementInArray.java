@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
@@ -25,7 +27,7 @@ public class FindElementInArray {
 
 	
 	@Test
-	public void search_array_java () {
+	public void search_array_simpleLoop() {
 
 		Integer[] vikQueensLosingSeasons = {
 				1962, 1967, 1984, 2011, 1966,
@@ -45,7 +47,7 @@ public class FindElementInArray {
 	}
 		
 	@Test
-	public void search_array_java_with_list_contains_with_list_contains () {
+	public void search_array_listContains() {
 		
 		Integer[] vikQueensLosingSeasons = {
 				1962, 1967, 1984, 2011, 1966,
@@ -55,13 +57,26 @@ public class FindElementInArray {
 		
 		boolean hadALosingSeason = Arrays
 				.asList(vikQueensLosingSeasons)
-				.contains(new Integer(1962));
+				.contains(1962);
 		
 		assertTrue(hadALosingSeason);
 	}
+
+	@Test
+	public void search_array_setContains() {
+
+		Integer[] vikQueensLosingSeasons = {
+				1962, 1967, 1984, 2011, 1966,
+				1963, 1982, 2001, 1990, 2002,
+				2006, 2010, 1965, 1972, 1979,
+				1981, 1985};
+
+		Set<Integer> losingSeasons = new HashSet<>(Arrays.asList(vikQueensLosingSeasons));
+		assertTrue(losingSeasons.contains(1962));
+	}
 	
 	@Test
-	public void array_contains_element_java_binary_search () {
+	public void search_array_binarySearch() {
 
 		Integer[] vikQueensLosingSeasons = {
 				1962, 1967, 1984, 2011, 1966,

@@ -2,6 +2,7 @@ package com.levelup.java.stream;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

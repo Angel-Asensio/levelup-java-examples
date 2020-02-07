@@ -13,7 +13,7 @@ public class DateToLocalDate {
                 .toLocalDate();
     }
 
-    public LocalDate convertToLocalDateViaMilisecond(Date dateToConvert) {
+    public LocalDate convertToLocalDateViaMilliseconds(Date dateToConvert) {
         return Instant.ofEpochMilli(dateToConvert.getTime())
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();

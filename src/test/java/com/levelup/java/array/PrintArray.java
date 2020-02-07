@@ -39,5 +39,27 @@ public class PrintArray {
 				Arrays.deepToString(big10Conference));
 		
 	}
+
+	public <E> void printArray(final E[] inputArray ) {
+		// Display array elements
+		for(E element : inputArray) {
+			System.out.printf("%s ", element);
+		}
+		System.out.println();
+
+	}
+	
+	@Test
+	public void printIntegerArray() {
+		Integer[] intArray = { 1, 2, 3, 4, 5 };
+		printArray(intArray);
+	}
+
+	@Test
+	public void printCharacterArray() {
+		Character[] charArray = { 'H', 'E', 'L', 'L', 'O' };
+		printArray(charArray);
+	}
+	
 		
 }
