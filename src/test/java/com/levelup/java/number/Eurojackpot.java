@@ -39,12 +39,20 @@ public class Eurojackpot {
     @Test
     public void lotto6aus49Gewinnchance() {
         long sequences = binomial(49, 6) * 10;
-        System.out.printf("lotto 6 aus 49 Gewinnchance: 1 : %s%n", format(sequences));
+        System.out.printf("lotto 6 aus 49 Gewinnchance ===> 1 : %s%n", format(sequences));
     }
 
-    private String format(long input) {
+    String format(long input) {
         DECIMAL_FORMAT.applyPattern(PATTERN);
         return DECIMAL_FORMAT.format(input);
+    }
+
+    int getRandomIndex(final int bound) {
+        return ThreadLocalRandom.current().nextInt(bound);
+    }
+
+    int getRandomValidNumber(final int bound) {
+        return getRandomIndex(bound) + 1;
     }
 
     /**
@@ -64,10 +72,8 @@ public class Eurojackpot {
         Set<Integer> numbers = new TreeSet<>();
 
         while (numbers.size() < 5) {
-            int chosen = selected[getRandomIndex(10)];
-            if (!numbers.contains(chosen)) {
-                numbers.add(chosen);
-            }
+            int candidate = selected[getRandomIndex(10)];
+            numbers.add(candidate);
         }
 
         Set<Integer> stars = ImmutableSet.of(5, 8);
@@ -77,46 +83,26 @@ public class Eurojackpot {
     @Test
     public void eurojackpotGenerator() {
 
-        Set<Integer> fieldA = new TreeSet<>();
+        Set<Integer> fieldA = getParameterizedRandomSet(50, 5);
 
-        while (fieldA.size() < 5) {
-            int chosen = getRandomValidNumber(50);
-            if (!fieldA.contains(chosen)) {
-                fieldA.add(chosen);
-            }
-        }
-
-        Set<Integer> fieldB = new TreeSet<>();
-
-        while (fieldB.size() < 2) {
-            int chosen = getRandomValidNumber(10);
-            if (!fieldB.contains(chosen)) {
-                fieldB.add(chosen);
-            }
-        }
+        Set<Integer> fieldB = getParameterizedRandomSet(10, 2);
 
         System.out.printf("eurojackpot: %s + %s%n", fieldA, fieldB);
     }
 
+    private Set<Integer> getParameterizedRandomSet(final int limit, final int size) {
+        Set<Integer> randomSet = new TreeSet<>();
 
-    int getRandomIndex(final int bound) {
-        return ThreadLocalRandom.current().nextInt(bound);
-    }
-
-    int getRandomValidNumber(final int bound) {
-        return getRandomIndex(bound) + 1;
+        while (randomSet.size() < size) {
+            int chosen = getRandomValidNumber(limit);
+            randomSet.add(chosen);
+        }
+        return randomSet;
     }
 
     @Test
     public void lotto6aus49Generator() {
-        Set<Integer> numbers = new TreeSet<>();
-
-        while (numbers.size() < 6) {
-            int chosen = getRandomValidNumber(49);
-            if (!numbers.contains(chosen)) {
-                numbers.add(chosen);
-            }
-        }
+        Set<Integer> numbers = getParameterizedRandomSet(49, 6);
 
         System.out.printf("6 aus 49: %s%n", numbers);
     }
