@@ -68,7 +68,7 @@ public class ReverseElementsInList {
 		
 		ReverseListIterator reverseListIterator = new ReverseListIterator(precipitation);
 		
-		List<String> reversePrecipitation = new ArrayList<String>();
+		List<String> reversePrecipitation = new ArrayList<>();
 		while (reverseListIterator.hasNext()) {
 			reversePrecipitation.add( (String) reverseListIterator.next());
 		}

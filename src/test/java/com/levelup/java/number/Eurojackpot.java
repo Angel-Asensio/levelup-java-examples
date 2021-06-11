@@ -18,6 +18,28 @@ public class Eurojackpot {
     private static final NumberFormat NUMBER_FORMAT = NumberFormat.getNumberInstance(SPANISH);
     private static final DecimalFormat DECIMAL_FORMAT = (DecimalFormat) NUMBER_FORMAT;
 
+    String format(long input) {
+        DECIMAL_FORMAT.applyPattern(PATTERN);
+        return DECIMAL_FORMAT.format(input);
+    }
+
+    int getRandomIndex(final int bound) {
+        return ThreadLocalRandom.current().nextInt(bound);
+    }
+
+    int getRandomValidNumber(final int bound) {
+        return getRandomIndex(bound) + 1;
+    }
+
+    private Set<Integer> getParameterizedRandomSet(final int limit, final int size) {
+        Set<Integer> randomSet = new TreeSet<>();
+
+        while (randomSet.size() < size) {
+            randomSet.add(getRandomValidNumber(limit));
+        }
+        return randomSet;
+    }
+
     public long binomial(int n, int k) {
         long result = 1;
 
@@ -35,34 +57,21 @@ public class Eurojackpot {
         return result;
     }
 
-
     @Test
     public void lotto6aus49Gewinnchance() {
         long sequences = binomial(49, 6) * 10;
-        System.out.printf("lotto 6 aus 49 Gewinnchance ===> 1 : %s%n", format(sequences));
-    }
-
-    String format(long input) {
-        DECIMAL_FORMAT.applyPattern(PATTERN);
-        return DECIMAL_FORMAT.format(input);
-    }
-
-    int getRandomIndex(final int bound) {
-        return ThreadLocalRandom.current().nextInt(bound);
-    }
-
-    int getRandomValidNumber(final int bound) {
-        return getRandomIndex(bound) + 1;
+        System.out.printf("Lotto 6 aus 49 Gewinnchance ===> 1 : %s%n", format(sequences));
     }
 
     /**
-     * Welche Gewinnklasse ein Spiel erreicht, ergibt sich aus der Kombination der Anzahl an Richtigen in Feld A (aus 50 Zahlen werden 5 getippt
-     * und 5 gezogen) und Feld B (aus 10 Eurozahlen werden 2 getippt und 2 gezogen)
+     * Welche Gewinnklasse ein Spiel erreicht, ergibt sich aus der Kombination der Anzahl an Richtigen
+     * in Feld A (aus 50 Zahlen werden 5 getippt und 5 gezogen) und Feld B
+     * (aus 10 Eurozahlen werden 2 getippt und 2 gezogen)
      */
     @Test
     public void eurojackpotGewinnchance() {
         long sequences = binomial(50, 5) * binomial(10, 2);
-        System.out.printf("eurojackpot Gewinnchance ==> 1 : %s%n", format(sequences));
+        System.out.printf("Eurojackpot Gewinnchance ===> 1 : %s%n", format(sequences));
     }
 
     @Test
@@ -72,39 +81,27 @@ public class Eurojackpot {
         Set<Integer> numbers = new TreeSet<>();
 
         while (numbers.size() < 5) {
-            int candidate = selected[getRandomIndex(10)];
-            numbers.add(candidate);
+            numbers.add(selected[getRandomIndex(10)]);
         }
 
         Set<Integer> stars = ImmutableSet.of(5, 8);
-        System.out.printf("eurojackpot combination: %s + %s%n", numbers, stars);
+        System.out.printf("Eurojackpot Kombination: %s + %s%n", numbers, stars);
     }
 
     @Test
     public void eurojackpotGenerator() {
-
         Set<Integer> fieldA = getParameterizedRandomSet(50, 5);
 
         Set<Integer> fieldB = getParameterizedRandomSet(10, 2);
 
-        System.out.printf("eurojackpot: %s + %s%n", fieldA, fieldB);
-    }
-
-    private Set<Integer> getParameterizedRandomSet(final int limit, final int size) {
-        Set<Integer> randomSet = new TreeSet<>();
-
-        while (randomSet.size() < size) {
-            int chosen = getRandomValidNumber(limit);
-            randomSet.add(chosen);
-        }
-        return randomSet;
+        System.out.printf("Eurojackpot: %s + %s%n", fieldA, fieldB);
     }
 
     @Test
     public void lotto6aus49Generator() {
         Set<Integer> numbers = getParameterizedRandomSet(49, 6);
 
-        System.out.printf("6 aus 49: %s%n", numbers);
+        System.out.printf("Lotto 6 aus 49: %s%n", numbers);
     }
 
 }
